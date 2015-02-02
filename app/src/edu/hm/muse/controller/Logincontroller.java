@@ -81,7 +81,10 @@ public class Logincontroller {
 
     @RequestMapping(value = "/login.htm", method = RequestMethod.POST)
     public ModelAndView doSomeLogin(@RequestParam(value = "mname", required = false) String mname, @RequestParam(value = "mpwd", required = false) String mpwd, HttpSession session) {
-        return null;
+        
+    	
+    //	jdbcTemplate.execute(sql);
+    	return null;
     }
 
 

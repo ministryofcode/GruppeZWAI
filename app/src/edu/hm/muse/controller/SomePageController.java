@@ -38,8 +38,10 @@
 package edu.hm.muse.controller;
 
 import edu.hm.muse.exception.SuperFatalAndReallyAnnoyingException;
+
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -51,6 +53,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
+
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
@@ -58,6 +61,9 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.SecureRandom;
 import java.sql.Types;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 public class SomePageController {
@@ -73,9 +79,13 @@ public class SomePageController {
     public ModelAndView showSomePage() {
         ModelAndView mv = new ModelAndView("somePage");
 //        mv.addObject("msg", "Enter name and password");
-        mv.addObject("someThing", "Show me some love");
+        mv.addObject("someThing", "Show me some love");  
         return mv;
     }
+
+	private JdbcTemplate getJdbcTemplate() {
+		return jdbcTemplate;
+	}
 
 
 
