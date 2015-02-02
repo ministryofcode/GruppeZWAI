@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component LANGUAGE_LEVEL="JDK_1_6" inheritJdk="true">
+	<exclude-output/>
+	<contentEntry url="file://$MODULE_DIR$"/>
+	<lib name="aopalliance.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/aopalliance.jar!/"/>
+	</lib>
+	<lib name="commons-logging.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/commons-logging.jar!/"/>
+	</lib>
+	<lib name="javax.servlet.jsp.jstl-1.2.1.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/javax.servlet.jsp.jstl-1.2.1.jar!/"/>
+	</lib>
+	<lib name="javax.servlet.jsp.jstl-api-1.2.1.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/javax.servlet.jsp.jstl-api-1.2.1.jar!/"/>
+	</lib>
+	<lib name="spring-aop.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/spring-aop.jar!/"/>
+	</lib>
+	<lib name="spring-asm.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/spring-asm.jar!/"/>
+	</lib>
+	<lib name="spring-aspects.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/spring-aspects.jar!/"/>
+	</lib>
+	<lib name="spring-beans.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/spring-beans.jar!/"/>
+	</lib>
+	<lib name="spring-context-support.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/spring-context-support.jar!/"/>
+	</lib>
+	<lib name="spring-context.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/spring-context.jar!/"/>
+	</lib>
+	<lib name="spring-core.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/spring-core.jar!/"/>
+	</lib>
+	<lib name="spring-expression.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/spring-expression.jar!/"/>
+	</lib>
+	<lib name="spring-instrument-tomcat.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/spring-instrument-tomcat.jar!/"/>
+	</lib>
+	<lib name="spring-instrument.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/spring-instrument.jar!/"/>
+	</lib>
+	<lib name="spring-jdbc.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/spring-jdbc.jar!/"/>
+	</lib>
+	<lib name="spring-jms.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/spring-jms.jar!/"/>
+	</lib>
+	<lib name="spring-orm.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/spring-orm.jar!/"/>
+	</lib>
+	<lib name="spring-oxm.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/spring-oxm.jar!/"/>
+	</lib>
+	<lib name="spring-test.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/spring-test.jar!/"/>
+	</lib>
+	<lib name="spring-tx.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/spring-tx.jar!/"/>
+	</lib>
+	<lib name="spring-web.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/spring-web.jar!/"/>
+	</lib>
+	<lib name="spring-webmvc.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/spring-webmvc.jar!/"/>
+	</lib>
+	<lib name="ecj-3.7.2.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/apache-tomcat-7.0.27-embed/ecj-3.7.2.jar!/"/>
+	</lib>
+	<lib name="tomcat-embed-core.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/apache-tomcat-7.0.27-embed/tomcat-embed-core.jar!/"/>
+	</lib>
+	<lib name="hsqldb.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/hsql/hsqldb.jar!/"/>
+	</lib>
+	<lib name="tomcat-embed-logging-juli.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/apache-tomcat-7.0.27-embed/tomcat-embed-logging-juli.jar!/"/>
+	</lib>
+	<lib name="tomcat-embed-jasper.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/apache-tomcat-7.0.27-embed/tomcat-embed-jasper.jar!/"/>
+	</lib>
+</component>
