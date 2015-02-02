@@ -99,6 +99,7 @@ public class TomcatServer {
 
         tomcat.start();
         tomcat.getServer().await();
+        
     }
 
 }
