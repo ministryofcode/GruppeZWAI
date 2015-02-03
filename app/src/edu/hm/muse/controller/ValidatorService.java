@@ -1,4 +1,4 @@
-package edu.hm.muse.Service;
+package edu.hm.muse.controller;
 
 import edu.hm.muse.exception.SuperFatalAndReallyAnnoyingException;
 
@@ -26,16 +26,18 @@ import java.sql.Types;
 import java.util.List;
 
 @Controller
-
-
 public class ValidatorService {
 
-	private JdbcTemplate jdbcTemplate;
+	private static JdbcTemplate jdbcTemplate;
 	private String sessionID;
 	
 	@Resource(name = "dataSource")
 	public void setDataSource(DataSource dataSource) {
 		jdbcTemplate = new JdbcTemplate(dataSource);
+	}
+	
+	public ValidatorService(){
+		
 	}
 	
 	public ValidatorService(String sessionID){
@@ -47,7 +49,17 @@ public class ValidatorService {
 			return false;
 		}
 		String sql = "SELECT COUNT(*) FROM M_USER WHERE sessionID='" + this.sessionID +"'";
-    	boolean valid = jdbcTemplate.queryForInt(sql) == 1 ? true : false;
+    	boolean valid;
+		try {
+			valid = jdbcTemplate.queryForInt(sql) == 1 ? true : false;
+		} catch (DataAccessException e) {
+			return false;
+		}
     	return valid;		
 	}
+	
+	public void setSessionID(String sessionID){
+		this.sessionID = sessionID;
+	}
 }
+

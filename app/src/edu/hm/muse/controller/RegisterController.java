@@ -34,15 +34,11 @@
  *  *    along with BREW.  If not, see <http://www.gnu.org/licenses/>.                                                                                                  \/_/
  *
  */
-
 package edu.hm.muse.controller;
-
 import java.util.List;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
-
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Controller;
@@ -50,44 +46,53 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-
 @Controller
 public class RegisterController {
-
     private JdbcTemplate jdbcTemplate;
-
     @Resource(name = "dataSource")
     public void setDataSource(DataSource dataSource) {
         jdbcTemplate = new JdbcTemplate(dataSource);
     }
-
     @RequestMapping(value = "/register.htm", method = RequestMethod.GET)
     public ModelAndView showLoginScreen() {
         ModelAndView mv = new ModelAndView("register");
-        mv.addObject("msg", "Select a Username and Passowrd");
+        mv.addObject("msg", "Select a Username and Password");
         return mv;
     }
-
     @RequestMapping(value = "/register.htm", method = RequestMethod.POST)
     public ModelAndView doSomeLogin(@RequestParam(value = "mname", required = true) String mname, 
-    								@RequestParam(value = "mpwd", required = true) String mpwd, 
+    								@RequestParam(value = "mpwd", required = true) String mpwd,
+    								@RequestParam(value = "choosepicture", required = true) String pic,
     								HttpSession session) {
         ModelAndView mv = new ModelAndView("register");
+        
+        //Set PicName
+        
+        if(pic.equals("Bild 1")){
+        	pic = "pic1_th";
+        }
+        else if (pic.equals("Bild 2")){
+        	pic = "pic2_th";
+        }
+        else if(pic.equals("Bild 3")){
+        	pic = "pic3_th";
+        }
+        else{
+        	pic="false";
+        }
         
         // Select Users from DB to get last INDEX
         String sqlSelect = "SELECT ID FROM M_USER;";
         List<?> counts = jdbcTemplate.queryForList(sqlSelect, Integer.class);
-        int count = counts.size();
+        final int count = counts.size();
+        final int nextID = count+1;
         
         // Add next User to Database
-        String sql = "INSERT INTO M_USER (ID, muname, mpwd) VALUES ("+ count+1 + ", '" + mname + "', '" + mpwd + "');";    	
+        String sql = "INSERT INTO M_USER (ID, muname, mpwd, picName) VALUES ("+ nextID + ", '" + mname + "', '" + mpwd + "', '" + pic + "');";    	
         jdbcTemplate.execute(sql);
         
         mv.addObject("msg", "Thank You for Registering " + mname);
         
         return mv;
     }
-
-
-
 }

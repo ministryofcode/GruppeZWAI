@@ -66,10 +66,14 @@ import java.util.List;
 public class Logincontroller {
 
     private JdbcTemplate jdbcTemplate;
+    private ValidatorService vs;
 
     @Resource(name = "dataSource")
     public void setDataSource(DataSource dataSource) {
         jdbcTemplate = new JdbcTemplate(dataSource);
+        vs = new ValidatorService();
+        vs.setDataSource(dataSource);
+        
     }
 
     @RequestMapping(value = "/login.htm", method = RequestMethod.GET)
@@ -79,17 +83,20 @@ public class Logincontroller {
         return mv;
     }
 
-
-
     @RequestMapping(value = "/login.htm", method = RequestMethod.POST)
     public ModelAndView doSomeLogin(@RequestParam(value = "mname", required = false) String mname, @RequestParam(value = "mpwd", required = false) String mpwd, HttpSession session) {
-    	ModelAndView mv = new ModelAndView("picturegallary");
+    	ModelAndView mv = new ModelAndView("loginfalse");
     	if(validateLogin(mname, mpwd)){
-        	mv = new ModelAndView("profilpage");
         	setSessionForUser(mname, session);
     	}
-    	HttpSession sesseion = session;
-    //	jdbcTemplate.execute(sql);  
+        
+        vs.setSessionID(session.getId());
+        if(vs.isValid()){
+        	return new ModelAndView("logintrue");
+        }
+    	
+    	
+    	
     	return mv;
     }
 
