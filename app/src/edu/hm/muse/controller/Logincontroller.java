@@ -87,6 +87,7 @@ public class Logincontroller {
     	if(validateLogin(mname, mpwd)){
         	mv = new ModelAndView("profilpage");
         	setSessionForUser(mname, session);
+        	//test1234
         	
     	}
     	HttpSession sesseion = session;
