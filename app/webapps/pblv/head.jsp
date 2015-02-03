@@ -14,6 +14,7 @@
     <li><a href="/pblv/">Start / Main</a></li>
     <li><a href="login.htm">Login</a></li>
     <li><a href="profilpage.htm">Profilseite</a></li>
+    <li><a href="lookupuser.htm">Benutzer suchen</a></li>
     <li><a href="register.htm">Register for some cool porn here</a></li>
 </ul>
 
