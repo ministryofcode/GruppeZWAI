@@ -51,6 +51,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
+
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
@@ -58,6 +59,7 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.SecureRandom;
 import java.sql.Types;
+import java.util.List;
 
 @Controller
 public class Logincontroller {
@@ -78,19 +80,41 @@ public class Logincontroller {
 
 
 
-
     @RequestMapping(value = "/login.htm", method = RequestMethod.POST)
     public ModelAndView doSomeLogin(@RequestParam(value = "mname", required = false) String mname, @RequestParam(value = "mpwd", required = false) String mpwd, HttpSession session) {
-        
-    //Überprüfung Passwort und Username noch nötig	
-    	
-    	ModelAndView mv = new ModelAndView("profilpage");
-    	
-    	
-    //	jdbcTemplate.execute(sql);
-    	return mv;
+         
+    	if(validateLogin(mname, mpwd)){
+        	ModelAndView mv = new ModelAndView("profilpage");
+    	}
+    	HttpSession sesseion = session;
+    //	jdbcTemplate.execute(sql); 
+    	return null;
     }
 
+    private boolean validateUserName(String username){
+    	String sql = "SELECT COUNT(*) FROM M_USER WHERE muname='" + username +"'";
+    	boolean userExists = jdbcTemplate.queryForInt(sql) == 1 ? true : false;
+    	return userExists;
+    }
+    
+    private boolean validateLogin(String mname, String mpwd){
+    	if(!validateUserName(mname)){
+    		return false;
+    	}
+    	if(validatePW(mname, mpwd)){
+    		return true;
+    	}
+    	return false;
+    }
 
+	private boolean validatePW(String mname, String mpwd) {
+		String sql = "SELECT mpwd from M_USER WHERE muname='" + mname +"'";
+	    List<String> results = jdbcTemplate.queryForList(sql, String.class); 
+	    String pwd = results.get(0);
+	    if(pwd.equals(mpwd)){
+	    	return true;
+	    }
+	    return false;
+	}
 
 }
