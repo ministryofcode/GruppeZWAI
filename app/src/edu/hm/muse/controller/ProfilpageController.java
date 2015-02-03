@@ -37,8 +37,9 @@
 
 package edu.hm.muse.controller;
 
-import edu.hm.muse.exception.SuperFatalAndReallyAnnoyingException;
-import org.springframework.dao.DataAccessException;
+import javax.annotation.Resource;
+import javax.sql.DataSource;
+
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -46,51 +47,31 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.annotation.Resource;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import javax.sql.DataSource;
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
-import java.math.BigInteger;
-import java.security.MessageDigest;
-import java.security.SecureRandom;
-import java.sql.Types;
 
 @Controller
-public class Logincontroller {
+public class ProfilpageController {
+	
+	 private JdbcTemplate jdbcTemplate;
 
-    private JdbcTemplate jdbcTemplate;
-
-    @Resource(name = "dataSource")
-    public void setDataSource(DataSource dataSource) {
-        jdbcTemplate = new JdbcTemplate(dataSource);
-    }
-
-    @RequestMapping(value = "/login.htm", method = RequestMethod.GET)
-    public ModelAndView showLoginScreen() {
-        ModelAndView mv = new ModelAndView("login");
-        mv.addObject("msg", "Bitte geben Sie ihren Username und ihr Passwort ein.");
-        return mv;
-    }
+	    @Resource(name = "dataSource")
+	    public void setDataSource(DataSource dataSource) {
+	        jdbcTemplate = new JdbcTemplate(dataSource);
+	    }
 
 
+	    @RequestMapping(value = "/profilpage.htm", method = RequestMethod.GET)
+	    public ModelAndView profilpage() {
+	        ModelAndView mv = new ModelAndView("profilpage");
+//	        mv.addObject("msg", "Enter name and password");
+	        mv.addObject("user", "hier kommt der Username rein");  
+	        return mv;
+	    }
 
-
-    @RequestMapping(value = "/login.htm", method = RequestMethod.POST)
-    public ModelAndView doSomeLogin(@RequestParam(value = "mname", required = false) String mname, @RequestParam(value = "mpwd", required = false) String mpwd, HttpSession session) {
-        
-    //Überprüfung Passwort und Username noch nötig	
-    	
-    	ModelAndView mv = new ModelAndView("profilpage");
-    	
-    	
-    //	jdbcTemplate.execute(sql);
-    	return mv;
-    }
-
+		private JdbcTemplate getJdbcTemplate() {
+			return jdbcTemplate;
+		}
 
 
 }
+
+//test1234

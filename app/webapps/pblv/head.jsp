@@ -12,8 +12,8 @@
 <ul id="navigation">
 
     <li><a href="/pblv/">Start / Main</a></li>
-    <li><a href="login.htm">some login</a></li>
-    <li><a href="picturegallery.htm">watch beautiful pictures</a></li>
+    <li><a href="login.htm">Login</a></li>
+    <li><a href="profilpage.htm">Profilseite</a></li>
     <li><a href="somePage.htm">see some cool porn here</a></li>
 </ul>
 

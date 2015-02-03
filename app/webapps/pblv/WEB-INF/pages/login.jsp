@@ -5,10 +5,10 @@
 
 
 <form action="login.htm" method="post">
+	<label for="mname" >User Name: </label>
     <input type="text" name="mname" id="mname">
-    <label for="mname" >User Name</label>
+    <label for="mpwd">Passwort:</label>
     <input type="text" name="mpwd" id="mpwd">
-    <label for="mpwd">Password</label>
     <input type="submit" value="Login">
 </form>
 
