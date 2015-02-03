@@ -90,7 +90,7 @@ public class Logincontroller {
         	
     	}
     	HttpSession sesseion = session;
-    //	jdbcTemplate.execute(sql); 
+    //	jdbcTemplate.execute(sql);  
     	return mv;
     }
 
