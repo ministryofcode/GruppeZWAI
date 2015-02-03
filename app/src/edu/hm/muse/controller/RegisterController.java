@@ -37,33 +37,22 @@
 
 package edu.hm.muse.controller;
 
-import edu.hm.muse.exception.SuperFatalAndReallyAnnoyingException;
+import java.util.List;
 
-import org.springframework.dao.DataAccessException;
+import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
+import javax.sql.DataSource;
+
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.annotation.Resource;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import javax.sql.DataSource;
-
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
-import java.math.BigInteger;
-import java.security.MessageDigest;
-import java.security.SecureRandom;
-import java.sql.Types;
-import java.util.List;
-
 @Controller
-public class Logincontroller {
+public class RegisterController {
 
     private JdbcTemplate jdbcTemplate;
 
@@ -72,64 +61,33 @@ public class Logincontroller {
         jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
-    @RequestMapping(value = "/login.htm", method = RequestMethod.GET)
+    @RequestMapping(value = "/register.htm", method = RequestMethod.GET)
     public ModelAndView showLoginScreen() {
-        ModelAndView mv = new ModelAndView("login");
-        mv.addObject("msg", "Bitte geben Sie ihren Username und ihr Passwort ein.");
+        ModelAndView mv = new ModelAndView("register");
+        mv.addObject("msg", "Select a Username and Passowrd");
+        return mv;
+    }
+
+    @RequestMapping(value = "/register.htm", method = RequestMethod.POST)
+    public ModelAndView doSomeLogin(@RequestParam(value = "mname", required = true) String mname, 
+    								@RequestParam(value = "mpwd", required = true) String mpwd, 
+    								HttpSession session) {
+        ModelAndView mv = new ModelAndView("register");
+        
+        // Select Users from DB to get last INDEX
+        String sqlSelect = "SELECT ID FROM M_USER;";
+        List<?> counts = jdbcTemplate.queryForList(sqlSelect, Integer.class);
+        int count = counts.size();
+        
+        // Add next User to Database
+        String sql = "INSERT INTO M_USER (ID, muname, mpwd) VALUES ("+ count+1 + ", '" + mname + "', '" + mpwd + "');";    	
+        jdbcTemplate.execute(sql);
+        
+        mv.addObject("msg", "Thank You for Registering " + mname);
+        
         return mv;
     }
 
 
-
-    @RequestMapping(value = "/login.htm", method = RequestMethod.POST)
-    public ModelAndView doSomeLogin(@RequestParam(value = "mname", required = false) String mname, @RequestParam(value = "mpwd", required = false) String mpwd, HttpSession session) {
-    	ModelAndView mv = new ModelAndView("picturegallary");
-    	if(validateLogin(mname, mpwd)){
-        	mv = new ModelAndView("profilpage");
-        	setSessionForUser(mname, session);
-        	
-    	}
-    	HttpSession sesseion = session;
-    //	jdbcTemplate.execute(sql); 
-    	return mv;
-    }
-
-    private boolean setSessionForUser(String mname, HttpSession session) {
-		String sql = "UPDATE M_USER SET sessionID = '" + session.getId() + "' WHERE muname ='" + mname + "'";
-		try {
-			jdbcTemplate.execute(sql);
-			return true;
-		} catch (DataAccessException e) {
-			e.printStackTrace();
-		}
-		return false;
-		
-	}
-
-	private boolean validateUserName(String username){
-    	String sql = "SELECT COUNT(*) FROM M_USER WHERE muname='" + username +"'";
-    	boolean userExists = jdbcTemplate.queryForInt(sql) == 1 ? true : false;
-    	return userExists;
-    }
-    
-    private boolean validateLogin(String mname, String mpwd){
-    	if(!validateUserName(mname)){
-    		return false;
-    	}
-    	if(validatePW(mname, mpwd)){
-    		return true;
-    	}
-    	return false;
-    }
-
-	private boolean validatePW(String mname, String mpwd) {
-		String sql = "SELECT mpwd from M_USER WHERE muname='" + mname +"'";
-	    List<String> results = jdbcTemplate.queryForList(sql, String.class); 
-	    String pwd = results.get(0);
-	    if(pwd.equals(mpwd)){
-	    	return true;
-	    }
-	    return false;
-	}
 
 }

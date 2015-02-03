@@ -4,9 +4,17 @@
 <h2>Hallo <c:out value="${user}"/></h2>
 
 
-<form action="somePage.htm" method="post">
+<form action="profilpage.htm" method="post">
    
     <label for="Hallo" >Hello world</label>
+	<br>
+   
+    
+    <c:forEach var="locpic" items="${pictures}">
+    
+        <img src="img/${locpic}_th.jpg" alt="${locpic}">
+   
+    </c:forEach>
 </form>
 
 

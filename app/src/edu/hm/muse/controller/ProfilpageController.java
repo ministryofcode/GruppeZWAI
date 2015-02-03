@@ -61,9 +61,12 @@ public class ProfilpageController {
 
 	    @RequestMapping(value = "/profilpage.htm", method = RequestMethod.GET)
 	    public ModelAndView profilpage() {
+	    	
+	    	String pics = "pic1";
+	    	
 	        ModelAndView mv = new ModelAndView("profilpage");
-//	        mv.addObject("msg", "Enter name and password");
-	        mv.addObject("user", "hier kommt der Username rein");  
+	        mv.addObject("user", "hier kommt der Username rein");
+	        mv.addObject("pictures", pics);
 	        return mv;
 	    }
 
