@@ -15,6 +15,21 @@
         <img src="img/${locpic}_th.jpg" alt="${locpic}">
    
     </c:forEach>
+    
+    <br>
+  	<label for="post">Eingaben für ein Post:</label>
+  	<br>
+    	<textarea name="post" id="post" cols="60" rows="5"></textarea>
+  	<br>
+ 	<input type="submit" value="POSTEN">
+	<br>
+	
+	<c:forEach var="post" items="${posts}">
+    
+        <p>${post}<p>
+   
+    </c:forEach>
+	
 </form>
 
 

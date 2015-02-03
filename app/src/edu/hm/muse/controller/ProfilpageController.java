@@ -37,9 +37,13 @@
 
 package edu.hm.muse.controller;
 
+import java.util.Map;
+
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -52,6 +56,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class ProfilpageController {
 	
 	 private JdbcTemplate jdbcTemplate;
+	 private int userID;
 
 	    @Resource(name = "dataSource")
 	    public void setDataSource(DataSource dataSource) {
@@ -60,14 +65,31 @@ public class ProfilpageController {
 
 
 	    @RequestMapping(value = "/profilpage.htm", method = RequestMethod.GET)
-	    public ModelAndView profilpage() {
-	    	
-	    	String pics = "pic1";
-	    	
+	    public ModelAndView profilpage(HttpSession session) {	    	
+	    	String pics = "pic1";	    	
 	        ModelAndView mv = new ModelAndView("profilpage");
-	        mv.addObject("user", "hier kommt der Username rein");
-	        mv.addObject("pictures", pics);
-	        return mv;
+	        
+	        try {
+				String sql = "SELECT * FROM M_USER WHERE sessionID = '" + session.getId() + "';";
+				Map<String,?> userdata = jdbcTemplate.queryForMap(sql);
+				
+				userID = (Integer) userdata.get("ID");       
+				mv.addObject("user", userdata.get("muname"));
+				mv.addObject("pictures", pics);
+				return mv;
+			} catch (DataAccessException e) {
+				return new ModelAndView("loginfalse");
+			}
+	    }
+	    
+	    @RequestMapping(value = "/profilpage.htm", method = RequestMethod.POST)
+	    public ModelAndView profilpage(@RequestParam(value = "post", required = false) String post) {   	    		    	
+	        ModelAndView mv = new ModelAndView("profilpage");
+	        
+	        String sql = "INSERT INTO M_POSTS (ID, U_ID, message, private) VALUES (NULL, " + userID + ", '" + post + "', 0);";
+	        jdbcTemplate.execute(sql);	        
+
+	        return null;
 	    }
 
 		private JdbcTemplate getJdbcTemplate() {

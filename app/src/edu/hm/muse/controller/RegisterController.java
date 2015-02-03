@@ -80,18 +80,15 @@ public class RegisterController {
         else{
         	pic="false";
         }
-        
-        // Select Users from DB to get last INDEX
-        String sqlSelect = "SELECT ID FROM M_USER;";
-        List<?> counts = jdbcTemplate.queryForList(sqlSelect, Integer.class);
-        final int count = counts.size();
-        final int nextID = count+1;
-        
+                      
         // Add next User to Database
-        String sql = "INSERT INTO M_USER (ID, muname, mpwd, picName) VALUES ("+ nextID + ", '" + mname + "', '" + mpwd + "', '" + pic + "');";    	
+        String sql = "INSERT INTO M_USER (ID, muname, mpwd) VALUES (NULL, '" + mname + "', '" + mpwd + "');";    	
         jdbcTemplate.execute(sql);
         
-        mv.addObject("msg", "Thank You for Registering " + mname);
+        String sqlSelect = "SELECT COUNT(*) FROM M_USER;";        
+        final int count = jdbcTemplate.queryForInt(sqlSelect);
+        
+        mv.addObject("msg", "User " + mname + " with ID: " + count + " registered.");
         
         return mv;
     }
