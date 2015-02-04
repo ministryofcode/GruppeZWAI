@@ -34,6 +34,8 @@
 				         	<input type="hidden" name="postID" id="postID" value="${post.id}">
 				         	<input type="submit" name="TRUE" id="TRUE" value="KANJEG">
 				         	<br>
+				         	<label for="post" Value="${countlikes}"></label>
+				         	<br>
 				         	<input type="submit" name="FALSE" id="FALSE" value="MOTVILJE">
 				         </form>
 			         </div>
