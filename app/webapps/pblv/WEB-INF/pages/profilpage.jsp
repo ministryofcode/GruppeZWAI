@@ -32,9 +32,9 @@
 				         	<br>
 				            <input type="hidden" name="userID" id="userID" value="$(loggedID)">
 				         	<input type="hidden" name="postID" id="postID" value="${post.id}">
-				         	<input type="submit" name="KANJEG" value="KANJEG">
+				         	<input type="submit" name="TRUE" id="TRUE" value="KANJEG">
 				         	<br>
-				         	<input type="submit" name="MOTIVILJE" value="MOTVILJE">
+				         	<input type="submit" name="FALSE" id="FALSE" value="MOTVILJE">
 				         </form>
 			         </div>
 		         </td></tr>
