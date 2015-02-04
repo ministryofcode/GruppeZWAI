@@ -65,14 +65,14 @@ public class ProfilpageController {
 
 
 	    @RequestMapping(value = "/profilpage.htm", method = RequestMethod.GET)
-	    public ModelAndView profilpage(@RequestParam(value="user", required=false) int reqUser, HttpSession session) {	    	
+	    public ModelAndView profilpage(@RequestParam(value="user", required=false) Integer reqUser, HttpSession session) {	    	
 	    	String pics = "pic1";	    	
 	        ModelAndView mv = new ModelAndView("profilpage");
 	        String sqlUser;
 	        
-	        if(reqUser != 0) 
+	        if(reqUser != null && reqUser.intValue() != 0) 
 	        {
-	        	sqlUser = "SELECT * FROM M_USER WHERE ID = '" + reqUser + "';";
+	        	sqlUser = "SELECT * FROM M_USER WHERE ID = '" + reqUser.intValue() + "';";
 	        } 
 	        else 
 	        {
