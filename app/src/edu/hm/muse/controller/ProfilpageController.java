@@ -102,7 +102,7 @@ public class ProfilpageController {
 				
 				List<Map<String,Object>> postdata = jdbcTemplate.queryForList(sqlPosts);				
 				
-				mv.clear();
+
 				mv.addObject("user", userdata.get("muname"));
 				mv.addObject("loggedID", loggeddata.get("ID"));
 				mv.addObject("userID", userdata.get("ID"));
@@ -124,27 +124,32 @@ public class ProfilpageController {
 	    						 @RequestParam(value = "postID", required = false) Integer likedPost,
 	    						 @RequestParam(value = "TRUE", required = false) Object likeButton,
 	    						 @RequestParam(value = "FALSE", required = false) Object dislikeButton,
-	    						 HttpSession session) {   	    		    		        
-	        String sql = "INSERT INTO M_POSTS (ID, U_ID, message, private) VALUES (NULL, " + userID + ", '" + post + "', " + privacy + ");";
-	        final boolean like;
-	        jdbcTemplate.execute(sql);
-	        
-	        if(likeButton == null)
-	        {
-	        	like = false;
-	        }
-	        else
-	        {
-	        	like = true;
-	        }
-	        
-	        if(likingUser != null && likedPost != null)
-	        {
-	        	String sqlLike = "INSERT INTO M_LIKES (ID, U_ID, P_ID, likestatus) VALUES (NULL, "+ likingUser.intValue() + ", "+ likedPost.intValue() + ", "+ like + ");";
-	        	System.out.println(sqlLike);
-	        }
-	        
-	        return "redirect:/profilpage.htm";
+	    						 HttpSession session) {   
+	    	if(post != null)
+	    	{
+	    		String sql = "INSERT INTO M_POSTS (ID, U_ID, message, private) VALUES (NULL, " + userID + ", '" + post + "', " + privacy + ");";
+		        
+		        jdbcTemplate.execute(sql);
+	    	}
+	    	else
+	    	{
+	    		final boolean like;
+		        if(likeButton == null)
+		        {
+		        	like = false;
+		        }
+		        else
+		        {
+		        	like = true;
+		        }
+		        
+		        if(likingUser != null && likedPost != null)
+		        {
+		        	String sqlLike = "INSERT INTO M_LIKES (ID, U_ID, P_ID, likestatus) VALUES (NULL, "+ likingUser.intValue() + ", "+ likedPost.intValue() + ", "+ like + ");";
+		        	System.out.println(sqlLike);
+		        }
+	    	}
+	    	return "redirect:/profilpage.htm";
 	    }
 
 		private JdbcTemplate getJdbcTemplate() {
