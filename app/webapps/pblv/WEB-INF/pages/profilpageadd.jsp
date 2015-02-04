@@ -4,7 +4,7 @@
 <h2>Hallo <c:out value="${user}"/></h2>
 
 
-<form action="profilpage.htm" method="post">
+<form action="profilpage.htm" name="addfriend" method="post">
    
     <label for="Hallo" >Hello world</label>
     <br>

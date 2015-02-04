@@ -3,7 +3,7 @@
 <h2>Willkommen <c:out value="${user}"/></h2>
 
 
-<form action="profilpage.htm" method="post">
+<form action="profilpage.htm" name="send" method="post">
 
     <c:forEach var="locpic" items="${pictures}">
         <img src="img/${locpic}_th.jpg" alt="${locpic}">
@@ -24,18 +24,20 @@
 	<p>
 		<c:forEach var="post" items="${posts}">
 	        <table border="1" width="450">
-	        <tr><td width="340">
-	        <p>${post.message}<p>
-	        </td><td width="110">
-	        <div align="center">
-	         <form action="profilpage.htm" method="post">
-	         	<br>
-	         	<input type="submit" name="KANJEG" value="KANJEG">
-	         	<br>
-	         	<input type="submit" name="MOTIVILJE" value="MOTVILJE">
-	         </form>
-	         </div>
-	         </td></tr>
+		        <tr><td width="340">
+		        <p>${post.message}<p>
+		        </td><td width="110">
+			        <div align="center">
+				         <form action="profilpage.htm" name="rating" method="post">
+				         	<br>
+				            <input type="hidden" name="userID" id="userID" value="$(loggedID)">
+				         	<input type="hidden" name="postID" id="postID" value="${post.id}">
+				         	<input type="submit" name="KANJEG" value="KANJEG">
+				         	<br>
+				         	<input type="submit" name="MOTIVILJE" value="MOTVILJE">
+				         </form>
+			         </div>
+		         </td></tr>
 	         </table>
 	    </c:forEach>
 	</p>
