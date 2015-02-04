@@ -119,10 +119,29 @@ public class ProfilpageController {
 	    @RequestMapping(value = "/profilpage.htm", method = RequestMethod.POST)
 	    public String profilpage(@RequestParam(value = "post", required = false) String post,
 	    						 @RequestParam(value = "privacy", required = false) boolean privacy, 
+	    						 @RequestParam(value = "userID", required = false) Integer likingUser,
+	    						 @RequestParam(value = "postID", required = false) Integer likedPost,
+	    						 @RequestParam(value = "TRUE", required = false) Object likeButton,
+	    						 @RequestParam(value = "FALSE", required = false) Object dislikeButton,
 	    						 HttpSession session) {   	    		    		        
 	        String sql = "INSERT INTO M_POSTS (ID, U_ID, message, private) VALUES (NULL, " + userID + ", '" + post + "', " + privacy + ");";
-	        System.out.println(sql);
+	        final boolean like;
 	        jdbcTemplate.execute(sql);
+	        
+	        if(likeButton == null)
+	        {
+	        	like = false;
+	        }
+	        else
+	        {
+	        	like = true;
+	        }
+	        
+	        if(likingUser != null && likedPost != null)
+	        {
+	        	String sqlLike = "INSERT INTO M_LIKES (ID, U_ID, P_ID, likestatus) VALUES (NULL, "+ likedPost.intValue() + ", "+ likingUser.intValue() + ", "+ like + ");";
+	        	System.out.println(sqlLike);
+	        }
 	        
 	        return "redirect:/profilpage.htm";
 	    }

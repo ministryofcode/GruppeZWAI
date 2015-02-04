@@ -30,7 +30,7 @@
 			        <div align="center">
 				         <form action="profilpage.htm" name="rating" method="post">
 				         	<br>
-				            <input type="hidden" name="userID" id="userID" value="$(loggedID)">
+				            <input type="hidden" name="userID" id="userID" value="${loggedID}">
 				         	<input type="hidden" name="postID" id="postID" value="${post.id}">
 				         	<input type="submit" name="TRUE" id="TRUE" value="KANJEG">
 				         	<br>
