@@ -7,9 +7,9 @@ CREATE TABLE M_LIKES(ID NUMERIC PRIMARY KEY,  U_ID NUMERIC FOREIGN KEY REFERENCE
 
 
 
-insert into M_USER (ID,muname,mpwd) values (1,'alan','pwd1');
-insert into M_USER (ID,muname,mpwd) values (2,'ada','pwd2');
-insert into M_USER (ID,muname,mpwd) values (3,'bob','pwd3');
-insert into M_USER (ID,muname,mpwd) values (4,'eve','pwd4');
-insert into M_USER (ID,muname,mpwd) values (5,'alice','pwd5');
+insert into M_USER (ID,muname,mpwd,picName) values (1,'alan','pwd1', 'pic1');
+insert into M_USER (ID,muname,mpwd,picName) values (2,'ada','pwd2', 'pic2');
+insert into M_USER (ID,muname,mpwd,picName) values (3,'bob','pwd3', 'pic3');
+insert into M_USER (ID,muname,mpwd,picName) values (4,'eve','pwd4', 'pic4');
+insert into M_USER (ID,muname,mpwd,picName) values (5,'alice','pwd5', 'pic1');
 

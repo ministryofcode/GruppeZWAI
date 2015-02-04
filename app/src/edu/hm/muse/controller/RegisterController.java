@@ -69,20 +69,23 @@ public class RegisterController {
         //Set PicName
         
         if(pic.equals("Bild 1")){
-        	pic = "pic1_th";
+        	pic = "pic1";
         }
         else if (pic.equals("Bild 2")){
-        	pic = "pic2_th";
+        	pic = "pic2";
         }
         else if(pic.equals("Bild 3")){
-        	pic = "pic3_th";
+        	pic = "pic3";
+        }
+        else if(pic.equals("Bild 4")){
+        	pic = "pic4";
         }
         else{
         	pic="false";
         }
                       
         // Add next User to Database
-        String sql = "INSERT INTO M_USER (ID, muname, mpwd) VALUES (NULL, '" + mname + "', '" + mpwd + "');";    	
+        String sql = "INSERT INTO M_USER (ID, muname, mpwd, picName) VALUES (NULL, '" + mname + "', '" + mpwd + "', '" + pic + "');";    	
         jdbcTemplate.execute(sql);
         
         String sqlSelect = "SELECT COUNT(*) FROM M_USER;";        

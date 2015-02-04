@@ -19,13 +19,16 @@
     <img src="img/pic2_th.jpg">
     <label>Bild 3:</label>
     <img src="img/pic3_th.jpg">
+    <label>Bild 4:</label>
+    <img src="img/pic4_th.jpg">
     <br>
     <br>
     <p>
-    <select name ="choosepicture" size="3">
+    <select name ="choosepicture" size="4">
     	<option>Bild 1</option>
     	<option>Bild 2</option>
     	<option>Bild 3</option>
+    	<option>Bild 4</option>
     </select>
     </p>
     <input type="submit" value="Register">
