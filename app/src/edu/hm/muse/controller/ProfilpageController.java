@@ -117,8 +117,11 @@ public class ProfilpageController {
 	    }
 	    
 	    @RequestMapping(value = "/profilpage.htm", method = RequestMethod.POST)
-	    public String profilpage(@RequestParam(value = "post", required = false) String post, HttpSession session) {   	    		    		        
-	        String sql = "INSERT INTO M_POSTS (ID, U_ID, message, private) VALUES (NULL, " + userID + ", '" + post + "', 0);";
+	    public String profilpage(@RequestParam(value = "post", required = false) String post,
+	    						 @RequestParam(value = "privacy", required = false) boolean privacy, 
+	    						 HttpSession session) {   	    		    		        
+	        String sql = "INSERT INTO M_POSTS (ID, U_ID, message, private) VALUES (NULL, " + userID + ", '" + post + "', " + privacy + ");";
+	        System.out.println(sql);
 	        jdbcTemplate.execute(sql);
 	        
 	        return "redirect:/profilpage.htm";
