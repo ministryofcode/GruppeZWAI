@@ -12,17 +12,12 @@
         <img src="img/${locpic}_th.jpg" alt="${locpic}">
     </c:forEach>
     
-    <c:if test="${userID != loggedID}">
-	    <p>
-	    <input type="submit" value="${user} als Freund hinzufügen">
-	    </p>
-  	</c:if>
-
   	<c:if test="${userID == loggedID}">
   		<p>
   		<label for="post">Eingaben für ein Post:</label><br/>
     	<textarea name="post" id="post" cols="60" rows="5" required></textarea><br/>
 		<input type="submit" value="POSTEN" onClick="window.location.reload()">
+		<input type="checkbox" name="private" value="true"> Post nur für Freunde
 		</p>
 	</c:if>
  	
@@ -31,6 +26,8 @@
 	        <p>${post.message}<p>
 	    </c:forEach>
 	</p>
+	
+	
 </form>
 
 
