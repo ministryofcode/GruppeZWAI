@@ -68,7 +68,7 @@ public class ProfilpageController {
 	    @RequestMapping(value = "/profilpage.htm", method = RequestMethod.GET)
 	    public ModelAndView profilpage(@RequestParam(value="user", required=false) Integer reqUser, HttpSession session) {	    	
 	    	//String pics = "pic1";	    	
-	        ModelAndView mv = new ModelAndView("profilpage");
+	        ModelAndView mv;
 	        String sqlLogged;
 	        String sqlUser;
 	        String sqlPosts;
@@ -78,21 +78,30 @@ public class ProfilpageController {
 	        	sqlLogged = "SELECT ID FROM M_USER WHERE sessionID = '" + session.getId() + "';";
 	        	sqlUser = "SELECT * FROM M_USER WHERE ID = '" + reqUser.intValue() + "';";
 	        	sqlPosts = "SELECT * FROM M_POSTS WHERE U_ID = '" + reqUser.intValue() + "';";
+	        	mv = new ModelAndView("profilpageadd");
 	        } 
 	        else 
 	        {
 	        	sqlLogged = "SELECT ID FROM M_USER WHERE sessionID = '" + session.getId() + "';";
 	        	sqlUser = "SELECT * FROM M_USER WHERE sessionID = '" + session.getId() + "';";
-	        	sqlPosts = "SELECT * FROM M_POSTS;";
+	        	sqlPosts = null;
+	        	mv = new ModelAndView("profilpage");
 	        }
 	        	        
 	        try 
 	        {
 				Map<String,?> userdata = jdbcTemplate.queryForMap(sqlUser);
-				Map<String,?> loggeddata = jdbcTemplate.queryForMap(sqlLogged);
-				List<Map<String,Object>> postdata = jdbcTemplate.queryForList(sqlPosts);
+				Map<String,?> loggeddata = jdbcTemplate.queryForMap(sqlLogged);				
 				
 				userID = (Integer) userdata.get("ID");       
+				
+				if(sqlPosts == null) 
+				{
+					sqlPosts = "SELECT * FROM M_POSTS WHERE U_ID = '" + userID + "';";				
+				}
+				
+				List<Map<String,Object>> postdata = jdbcTemplate.queryForList(sqlPosts);				
+				
 				mv.addObject("user", userdata.get("muname"));
 				mv.addObject("loggedID", loggeddata.get("ID"));
 				mv.addObject("userID", userdata.get("ID"));
