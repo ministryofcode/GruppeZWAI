@@ -102,6 +102,7 @@ public class ProfilpageController {
 				
 				List<Map<String,Object>> postdata = jdbcTemplate.queryForList(sqlPosts);				
 				
+				mv.clear();
 				mv.addObject("user", userdata.get("muname"));
 				mv.addObject("loggedID", loggeddata.get("ID"));
 				mv.addObject("userID", userdata.get("ID"));
@@ -139,7 +140,7 @@ public class ProfilpageController {
 	        
 	        if(likingUser != null && likedPost != null)
 	        {
-	        	String sqlLike = "INSERT INTO M_LIKES (ID, U_ID, P_ID, likestatus) VALUES (NULL, "+ likedPost.intValue() + ", "+ likingUser.intValue() + ", "+ like + ");";
+	        	String sqlLike = "INSERT INTO M_LIKES (ID, U_ID, P_ID, likestatus) VALUES (NULL, "+ likingUser.intValue() + ", "+ likedPost.intValue() + ", "+ like + ");";
 	        	System.out.println(sqlLike);
 	        }
 	        
