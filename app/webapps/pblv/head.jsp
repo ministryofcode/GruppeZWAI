@@ -16,6 +16,8 @@
     <li><a href="profilpage.htm">Profilseite</a></li>
     <li><a href="lookupuser.htm">Benutzer suchen</a></li>
     <li><a href="register.htm">Register for some cool porn here</a></li>
+    <li><a href="friendlist.htm">Freundesliste</a></li>
+
 </ul>
 
 <div id="Inhalt">
