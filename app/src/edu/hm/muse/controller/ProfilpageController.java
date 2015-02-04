@@ -37,6 +37,7 @@
 
 package edu.hm.muse.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -66,7 +67,7 @@ public class ProfilpageController {
 
 	    @RequestMapping(value = "/profilpage.htm", method = RequestMethod.GET)
 	    public ModelAndView profilpage(@RequestParam(value="user", required=false) Integer reqUser, HttpSession session) {	    	
-	    	String pics = "pic1";	    	
+	    	//String pics = "pic1";	    	
 	        ModelAndView mv = new ModelAndView("profilpage");
 	        String sqlUser;
 	        
@@ -79,14 +80,17 @@ public class ProfilpageController {
 	        	sqlUser = "SELECT * FROM M_USER WHERE sessionID = '" + session.getId() + "';";
 	        }
 	        
+	        String sqlPosts = "SELECT * FROM M_POSTS";
+	        
 	        try 
 	        {
-				
 				Map<String,?> userdata = jdbcTemplate.queryForMap(sqlUser);
+				List<Map<String,Object>> postdata = jdbcTemplate.queryForList(sqlPosts);
 				
 				userID = (Integer) userdata.get("ID");       
 				mv.addObject("user", userdata.get("muname"));
-				mv.addObject("pictures", pics);
+				mv.addObject("pictures", userdata.get("picName"));
+				mv.addObject("posts", postdata);
 				return mv;
 			} 
 	        catch (DataAccessException e) 
@@ -96,11 +100,11 @@ public class ProfilpageController {
 	    }
 	    
 	    @RequestMapping(value = "/profilpage.htm", method = RequestMethod.POST)
-	    public ModelAndView profilpage(@RequestParam(value = "post", required = false) String post) {   	    		    	
+	    public ModelAndView profilpage(@RequestParam(value = "post", required = false) String post, HttpSession session) {   	    		    	
 	        ModelAndView mv = new ModelAndView("profilpage");
 	        
 	        String sql = "INSERT INTO M_POSTS (ID, U_ID, message, private) VALUES (NULL, " + userID + ", '" + post + "', 0);";
-	        jdbcTemplate.execute(sql);	        
+	        jdbcTemplate.execute(sql);
 
 	        return null;
 	    }

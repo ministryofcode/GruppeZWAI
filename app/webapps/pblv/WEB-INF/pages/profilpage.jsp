@@ -16,13 +16,13 @@
     </p>
   	<label for="post">Eingaben für ein Post:</label>
   	<br>
-    	<textarea name="post" id="post" cols="60" rows="5"></textarea>
+    	<textarea name="post" id="post" cols="60" rows="5" required></textarea>
   	<br>
- 	<input type="submit" value="POSTEN">
+ 	<input type="submit" value="POSTEN" onClick="window.location.reload()">
 	<br>
 	<p>
 	<c:forEach var="post" items="${posts}">
-        <p>${post}<p>
+        <p>${post.message}<p>
     </c:forEach>
 	</p>
 </form>
