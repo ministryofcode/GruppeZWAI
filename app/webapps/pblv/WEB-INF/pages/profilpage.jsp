@@ -1,13 +1,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="../../head.jsp"/>
-<h1>Ihre Profil Seite</h1>
-<h2>Hallo <c:out value="${user}"/></h2>
+<h2>Willkommen <c:out value="${user}"/></h2>
 
 
 <form action="profilpage.htm" method="post">
-   
-    <label for="Hallo" >Hello world</label>
-    <br>
+
     <c:forEach var="locpic" items="${pictures}">
         <img src="img/${locpic}_th.jpg" alt="${locpic}">
     </c:forEach>
@@ -16,19 +13,33 @@
   		<p>
   		<label for="post">Eingaben für ein Post:</label><br/>
     	<textarea name="post" id="post" cols="60" rows="5" required></textarea><br/>
-		<input type="submit" value="POSTEN" onClick="window.location.reload()">
-		<input type="checkbox" name="private" value="true"> Post nur für Freunde
+		<input type="checkbox" name="privacy" id="privacy" checked> Post nur für Freunde<br/>
+		<input type="submit" value="POSTEN" onClick="window.location.reload()">		
 		</p>
 	</c:if>
- 	
+
+	
+</form>
+
 	<p>
 		<c:forEach var="post" items="${posts}">
+	        <table border="1" width="450">
+	        <tr><td width="340">
 	        <p>${post.message}<p>
+	        </td><td width="110">
+	        <div align="center">
+	         <form action="profilpage.htm" method="post">
+	         	<br>
+	         	<input type="submit" name="KANJEG" value="KANJEG">
+	         	<br>
+	         	<input type="submit" name="MOTIVILJE" value="MOTVILJE">
+	         </form>
+	         </div>
+	         </td></tr>
+	         </table>
 	    </c:forEach>
 	</p>
 	
-	
-</form>
 
 
 <jsp:include page="../../foot.jsp"/>
