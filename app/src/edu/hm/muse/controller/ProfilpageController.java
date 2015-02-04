@@ -77,7 +77,8 @@ public class ProfilpageController {
 	        {
 	        	sqlLogged = "SELECT ID FROM M_USER WHERE sessionID = '" + session.getId() + "';";
 	        	sqlUser = "SELECT * FROM M_USER WHERE ID = '" + reqUser.intValue() + "';";
-	        	sqlPosts = "SELECT * FROM M_POSTS WHERE U_ID = '" + reqUser.intValue() + "';";
+	        	sqlPosts = "SELECT * FROM M_POSTS JOIN M_LIKES WHERE U_ID = '" + reqUser.intValue() + "' AND "
+	        			 + " M_POSTS.ID = M_LIKES.P_ID;";
 	        	mv = new ModelAndView("profilpageadd");
 	        } 
 	        else 
@@ -97,7 +98,8 @@ public class ProfilpageController {
 				
 				if(sqlPosts == null) 
 				{
-					sqlPosts = "SELECT * FROM M_POSTS WHERE U_ID = '" + userID + "';";				
+					sqlPosts = "SELECT * FROM M_POSTS WHERE U_ID = '" + userID + "' AND "
+							 + " M_POSTS.ID = M_LIKES.P_ID;";				
 				}
 				
 				List<Map<String,Object>> postdata = jdbcTemplate.queryForList(sqlPosts);				
