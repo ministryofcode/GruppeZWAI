@@ -65,19 +65,32 @@ public class ProfilpageController {
 
 
 	    @RequestMapping(value = "/profilpage.htm", method = RequestMethod.GET)
-	    public ModelAndView profilpage(HttpSession session) {	    	
+	    public ModelAndView profilpage(@RequestParam(value="user", required=false) int reqUser, HttpSession session) {	    	
 	    	String pics = "pic1";	    	
 	        ModelAndView mv = new ModelAndView("profilpage");
+	        String sqlUser;
 	        
-	        try {
-				String sql = "SELECT * FROM M_USER WHERE sessionID = '" + session.getId() + "';";
-				Map<String,?> userdata = jdbcTemplate.queryForMap(sql);
+	        if(reqUser != 0) 
+	        {
+	        	sqlUser = "SELECT * FROM M_USER WHERE ID = '" + reqUser + "';";
+	        } 
+	        else 
+	        {
+	        	sqlUser = "SELECT * FROM M_USER WHERE sessionID = '" + session.getId() + "';";
+	        }
+	        
+	        try 
+	        {
+				
+				Map<String,?> userdata = jdbcTemplate.queryForMap(sqlUser);
 				
 				userID = (Integer) userdata.get("ID");       
 				mv.addObject("user", userdata.get("muname"));
 				mv.addObject("pictures", pics);
 				return mv;
-			} catch (DataAccessException e) {
+			} 
+	        catch (DataAccessException e) 
+	        {
 				return new ModelAndView("loginfalse");
 			}
 	    }
