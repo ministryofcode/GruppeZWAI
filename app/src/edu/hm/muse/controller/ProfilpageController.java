@@ -100,13 +100,11 @@ public class ProfilpageController {
 	    }
 	    
 	    @RequestMapping(value = "/profilpage.htm", method = RequestMethod.POST)
-	    public ModelAndView profilpage(@RequestParam(value = "post", required = false) String post, HttpSession session) {   	    		    	
-	        ModelAndView mv = new ModelAndView("profilpage");
-	        
+	    public String profilpage(@RequestParam(value = "post", required = false) String post, HttpSession session) {   	    		    		        
 	        String sql = "INSERT INTO M_POSTS (ID, U_ID, message, private) VALUES (NULL, " + userID + ", '" + post + "', 0);";
 	        jdbcTemplate.execute(sql);
-
-	        return null;
+	        
+	        return "redirect:/profilpage.htm";
 	    }
 
 		private JdbcTemplate getJdbcTemplate() {
