@@ -37,10 +37,13 @@
 
 package edu.hm.muse.controller;
 
+import java.util.Map;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -52,6 +55,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class LookupUserController {
 	
 	 private JdbcTemplate jdbcTemplate;
+	 private int userID;
 
 	    @Resource(name = "dataSource")
 	    public void setDataSource(DataSource dataSource) {
@@ -59,25 +63,53 @@ public class LookupUserController {
 	    }
 
 	    @RequestMapping(value = "/lookupuser.htm", method = RequestMethod.GET)	    
-	    public ModelAndView showLoginScreen() {
-	        ModelAndView mv = new ModelAndView("lookupuser");
-	        mv.addObject("msg", "Bitte geben Sie den gesuchten Benutzernamen ein.");
-	        return mv;
-	    }
+	    public ModelAndView lookupuser(HttpSession session) {
+	    	try {
+				String sql = "SELECT * FROM M_USER WHERE sessionID = '" + session.getId() + "';";
+				Map<String,?> userdata = jdbcTemplate.queryForMap(sql);
+				ModelAndView mv = new ModelAndView("lookupuser");
+			    mv.addObject("msg", "Bitte geben Sie den gesuchten Benutzernamen ein.");
+				return mv;
+			} catch (DataAccessException e) {
+				return new ModelAndView("loginfalse");
+			}
+		}
+	    
+	    @RequestMapping(value = "/lookupuser2.htm", method = RequestMethod.GET)	    
+	    public ModelAndView lookupuser2(HttpSession session) {
+	    	try {
+				String sql = "SELECT * FROM M_USER WHERE sessionID = '" + session.getId() + "';";
+				Map<String,?> userdata = jdbcTemplate.queryForMap(sql);
+				ModelAndView mv = new ModelAndView("lookupuser");
+			    mv.addObject("msg", "Bitte geben Sie den gesuchten Benutzernamen ein.");
+				return mv;
+			} catch (DataAccessException e) {
+				return new ModelAndView("loginfalse");
+			}
+		}
 	    
 	    @RequestMapping(value = "/lookupuser.htm", method = RequestMethod.POST)
 	    public ModelAndView doSomeLogin(@RequestParam(value = "mname", required = false) String mname, HttpSession session) {
 	    	ModelAndView mv = new ModelAndView("lookupuser");
 	    	mv.addObject("msg", "Ein Benutzer mit dem Namen '"+ mname +"' existiert nicht.");
 	    	if(validateUserName(mname)){
+	    		mv = new ModelAndView("lookupuser2");
 	    		mv.addObject("msg", "Benutzer '"+ mname +"' gefunden!");
+	    		mv.addObject("id", getID(mname));
 	    	}
 	    	return mv;
 	    }
-
+	    
 	    private boolean validateUserName(String username){
 	    	String sql = "SELECT COUNT(*) FROM M_USER WHERE muname='" + username +"'";
 	    	boolean userExists = jdbcTemplate.queryForInt(sql) == 1 ? true : false;
 	    	return userExists;
 	    }
+	    private int getID(String username){
+	    	String sql = "SELECT * FROM M_USER WHERE muname='" + username +"'";
+	    	Map<String,?> userdata = jdbcTemplate.queryForMap(sql);
+	    	userID = (Integer)userdata.get("ID");
+	    	return userID;
+	    }
+	    
 }
