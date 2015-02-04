@@ -11,19 +11,25 @@
     <c:forEach var="locpic" items="${pictures}">
         <img src="img/${locpic}_th.jpg" alt="${locpic}">
     </c:forEach>
-    <p>
-    <input type="submit" value="Als Freund hinzufügen">
-    </p>
-  	<label for="post">Eingaben für ein Post:</label>
-  	<br>
-    	<textarea name="post" id="post" cols="60" rows="5" required></textarea>
-  	<br>
- 	<input type="submit" value="POSTEN" onClick="window.location.reload()">
-	<br>
+    
+    <c:if test="${userID != loggedID}">
+	    <p>
+	    <input type="submit" value="${user} als Freund hinzufügen">
+	    </p>
+  	</c:if>
+
+  	<c:if test="${userID == loggedID}">
+  		<p>
+  		<label for="post">Eingaben für ein Post:</label><br/>
+    	<textarea name="post" id="post" cols="60" rows="5" required></textarea><br/>
+		<input type="submit" value="POSTEN" onClick="window.location.reload()">
+		</p>
+	</c:if>
+ 	
 	<p>
-	<c:forEach var="post" items="${posts}">
-        <p>${post.message}<p>
-    </c:forEach>
+		<c:forEach var="post" items="${posts}">
+	        <p>${post.message}<p>
+	    </c:forEach>
 	</p>
 </form>
 

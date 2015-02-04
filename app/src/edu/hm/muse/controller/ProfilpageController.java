@@ -69,32 +69,40 @@ public class ProfilpageController {
 	    public ModelAndView profilpage(@RequestParam(value="user", required=false) Integer reqUser, HttpSession session) {	    	
 	    	//String pics = "pic1";	    	
 	        ModelAndView mv = new ModelAndView("profilpage");
+	        String sqlLogged;
 	        String sqlUser;
+	        String sqlPosts;
 	        
 	        if(reqUser != null && reqUser.intValue() != 0) 
 	        {
+	        	sqlLogged = "SELECT ID FROM M_USER WHERE sessionID = '" + session.getId() + "';";
 	        	sqlUser = "SELECT * FROM M_USER WHERE ID = '" + reqUser.intValue() + "';";
+	        	sqlPosts = "SELECT * FROM M_POSTS WHERE U_ID = '" + reqUser.intValue() + "';";
 	        } 
 	        else 
 	        {
+	        	sqlLogged = "SELECT ID FROM M_USER WHERE sessionID = '" + session.getId() + "';";
 	        	sqlUser = "SELECT * FROM M_USER WHERE sessionID = '" + session.getId() + "';";
+	        	sqlPosts = "SELECT * FROM M_POSTS;";
 	        }
-	        
-	        String sqlPosts = "SELECT * FROM M_POSTS";
-	        
+	        	        
 	        try 
 	        {
 				Map<String,?> userdata = jdbcTemplate.queryForMap(sqlUser);
+				Map<String,?> loggeddata = jdbcTemplate.queryForMap(sqlLogged);
 				List<Map<String,Object>> postdata = jdbcTemplate.queryForList(sqlPosts);
 				
 				userID = (Integer) userdata.get("ID");       
 				mv.addObject("user", userdata.get("muname"));
+				mv.addObject("loggedID", loggeddata.get("ID"));
+				mv.addObject("userID", userdata.get("ID"));
 				mv.addObject("pictures", userdata.get("picName"));
 				mv.addObject("posts", postdata);
 				return mv;
 			} 
 	        catch (DataAccessException e) 
 	        {
+	        	System.out.println(e.getMessage());
 				return new ModelAndView("loginfalse");
 			}
 	    }
