@@ -151,6 +151,16 @@ public class ProfilpageController {
 	    	}
 	    	return "redirect:/profilpage.htm";
 	    }
+	    
+	    @RequestMapping(value = "/profilpageadd.htm", method = RequestMethod.POST)
+	    public String profilpage(@RequestParam(value = "senderID", required = false) Integer senderID,
+	    						 @RequestParam(value = "receiverID", required = false) Integer receiverID,
+	    						 HttpSession session) {   
+	    	String sql = "INSERT INTO M_FRIENDS (ID, U_ID) VALUES (" + senderID.intValue() + ", " + receiverID.intValue() + ");";
+	    	jdbcTemplate.execute(sql);
+	    	
+	    	return "redirect:/profilpage.htm?user="+ receiverID.intValue();
+	    }
 
 		private JdbcTemplate getJdbcTemplate() {
 			return jdbcTemplate;
