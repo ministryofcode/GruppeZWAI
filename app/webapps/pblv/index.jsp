@@ -3,7 +3,7 @@
 <h2>Willkommen bei ANSIKTBOK</h2>
 <br>
 <a href = "register.htm">Hier</a> geht es zur Registrierung.
-<br>
+<br><br>
 <a href = "login.htm">Hier</a> geht es zum Einloggen.
 
 
