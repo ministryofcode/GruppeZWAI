@@ -199,6 +199,11 @@ public class ProfilpageController {
 		        
 		        jdbcTemplate.execute(sql);
 	    	}
+	    	else if(senderID != null && receiverID != null)
+	    	{
+	    		String sql = "INSERT INTO M_FRIENDS (ID, U_ID) VALUES (" + senderID.intValue() + ", " + receiverID.intValue() + ");";
+		    	jdbcTemplate.execute(sql);
+	    	}
 	    	else
 	    	{
 	    		final boolean like;
@@ -218,12 +223,8 @@ public class ProfilpageController {
 		        	
 		        	jdbcTemplate.execute(sqlLike);
 		        }
-	    	}
+	    	}	    	
 	    	
-	    	if(senderID != null && receiverID != null){
-	    		String sql = "INSERT INTO M_FRIENDS (ID, U_ID) VALUES (" + senderID.intValue() + ", " + receiverID.intValue() + ");";
-		    	jdbcTemplate.execute(sql);
-	    	}
 	    	return "redirect:/profilpage.htm";
 	    }
 	    
