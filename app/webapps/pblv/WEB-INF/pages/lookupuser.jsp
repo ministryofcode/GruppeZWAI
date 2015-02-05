@@ -6,7 +6,7 @@
 
 <form action="lookupuser.htm" method="post">
 	<label for="mname" >Benutzername </label>
-    <input type="text" name="mname" id="mname">
+    <input type="text" name="mname" id="mname" maxlength="250">
     <input type="submit" value="Suche">
 </form>
 
