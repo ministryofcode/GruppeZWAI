@@ -2,30 +2,30 @@
 <jsp:include page="../../head.jsp"/>
 <h1>Willkommen <c:out value="${user}"/></h1>
 
-<form action="profilpage.htm" name="send" method="post">
-
     <c:forEach var="locpic" items="${pictures}">
         <img src="img/${locpic}_th.jpg" alt="${locpic}">
     </c:forEach>
     
     <c:if test="${userID != loggedID}">
 	    <p>
-	    <input type="hidden" name="senderID" id="senderID" value="${loggedID}">
-	    <input type="hidden" name="receiverID" id="receiverID" value="${userID}">
-	    <input type="submit" value="${user} als Freund hinzufügen">
+	    <form action="profilpage.htm" name="addFriend" method="post">
+		    <input type="hidden" name="senderID" id="senderID" value="${loggedID}">
+		    <input type="hidden" name="receiverID" id="receiverID" value="${userID}">
+		    <input type="submit" value="${user} als Freund hinzufügen">
+	    </form>
 	    </p>
   	</c:if>
     
   	<c:if test="${userID == loggedID}">
   		<p>
+  		<form action="profilpage.htm" name="posten" method="post">
   		<label for="post">Eingaben f&uuml;r ein Post:</label><br/>
-    	<textarea name="post" id="post" cols="60" rows="5" required></textarea><br/>
+    	<textarea name="post" id="post" cols="60" rows="5" maxlength="255" required></textarea><br/>
 		<input type="checkbox" name="privacy" id="privacy" checked> Post nur f&uuml;r Freunde<br/>
-		<input type="submit" value="POSTEN" onClick="window.location.reload()">		
+		<input type="submit" value="POSTEN" onClick="window.location.reload()">
+		</form>
 		</p>
 	</c:if>
-	
-</form>
 
 	<p>
 		<c:forEach var="post" items="${posts}">
