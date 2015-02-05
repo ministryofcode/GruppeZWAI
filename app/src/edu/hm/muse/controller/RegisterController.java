@@ -56,7 +56,7 @@ public class RegisterController {
     @RequestMapping(value = "/register.htm", method = RequestMethod.GET)
     public ModelAndView showLoginScreen() {
         ModelAndView mv = new ModelAndView("register");
-        mv.addObject("msg", "Benutzername und Passwort wählen:");
+        mv.addObject("msg", "Benutzername und Passwort w&auml;hlen:");
         return mv;
     }
     @RequestMapping(value = "/register.htm", method = RequestMethod.POST)
@@ -97,7 +97,7 @@ public class RegisterController {
         mv.addObject("msg", "Benutzer " + mname + " mit ID: " + count + " wurde angelegt");
         
         }else {
-        	mv.addObject("msg", "User mit dem Namen "+ mname+" bereits vorhanden!");
+        	mv.addObject("msg", "Benutzer mit dem Namen "+ mname+" bereits vorhanden!");
         }
         return mv;
     }
