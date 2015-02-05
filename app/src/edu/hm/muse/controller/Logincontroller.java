@@ -92,10 +92,22 @@ public class Logincontroller {
         
         vs.setSessionID(session.getId());
         if(vs.isValid()){
-        	return new ModelAndView("logintrue");
+        String id = session.getId();
+        	
+        		String sql = "SELECT ID FROM M_USER WHERE sessionID ='" + id + "'";
+        		String userID = jdbcTemplate.queryForObject(sql, String.class);
+        	
+        	
+        		String sql2 = "Select Count(*) from M_MESSAGES where R_ID = "+ userID +" AND READ = 0";
+        		
+        		int newMessageCout = jdbcTemplate.queryForInt(sql2);
+        	
+        	ModelAndView mvNewMessages = new ModelAndView("logintrue");
+        	
+        	mvNewMessages.addObject("msg", "Sie haben " +newMessageCout+ " neue Nachricht(en)." );
+        	
+        	return mvNewMessages;
         }
-    	
-    	
     	
     	return mv;
     }
