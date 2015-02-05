@@ -86,7 +86,7 @@ public class ProfilpageController {
 				}
 			}
 			
-			if(uid == lid || uid != lid && isFriend) 
+		if(uid == lid || uid != lid && isFriend) 
 			{
 				for(Map<String,Object> post: posts) 
 				{
@@ -95,7 +95,10 @@ public class ProfilpageController {
 
 					for(Map<String,Object> like: likes) 
 					{
-						if(Integer.getInteger(like.get("P_ID").toString()) == Integer.getInteger(post.get("ID").toString()))
+						String p_ID = like.get("P_ID").toString();
+						String id = post.get("ID").toString();
+												
+						if(p_ID.equals(id))
 						{
 							if((boolean)like.get("likestatus"))
 								likeCount++;
