@@ -4,8 +4,8 @@
 <form action="friendlist.htm" method="post">
     <label for="mname" >Hier kannst du deine Freunde anzeigen lassen</label>
     <br><br>
-        <input type="submit" value="Zeig meine Freunde">
-    <br>
+        <input type="submit" value="Freunde anzeigen">
+    <br><br>
 <table>
   <c:forEach items="${friends}" var="item">
     <tr>
