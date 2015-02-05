@@ -125,7 +125,11 @@ public class ProfilpageController {
 					if(status.equals("true") && !isFriend) 
 					{
 						posts.remove(post);
-						continue;
+						if(posts.size() > 0){
+							continue;
+						}else{
+							return posts;
+						}
 					}
 					
 					for(Map<String,Object> like: likes) 
