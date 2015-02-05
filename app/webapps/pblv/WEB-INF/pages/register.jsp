@@ -10,7 +10,7 @@
     <input type="password" name="mpwd" id="mpwd" required>
     <br>
     <br>
-    <label>Bitte gewünschtes Profilbild auswählen:</label>
+    <label>Bitte gew&uuml;nschtes Profilbild ausw&auml;hlen:</label>
     <br>
     <br>
     <label>Bild 1:</label>
