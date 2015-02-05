@@ -2,7 +2,7 @@
 <jsp:include page="../../head.jsp"/>
 <h1>Freundesliste</h1>
 <form action="friendlist.htm" method="post">
-    <label for="mname" >aktuelle Freunde</label>
+    <label for="mname" >Hier kannst du deine Freunde anzeigen lassen</label>
     
         <input type="submit" value="Zeig meine Freunde">
 
