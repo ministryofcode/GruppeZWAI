@@ -57,49 +57,85 @@ import org.springframework.web.servlet.ModelAndView;
 public class ProfilpageController {
 	
 	 private JdbcTemplate jdbcTemplate;
-	 private int userID;
+	 private int userID, loggedID;
 
 	    @Resource(name = "dataSource")
 	    public void setDataSource(DataSource dataSource) {
 	        jdbcTemplate = new JdbcTemplate(dataSource);
 	    }
 	    
-	    private List<Map<String,Object>> getPosts(Integer uid) {
-
+	    private List<Map<String,Object>> getPosts(Integer uid, Integer lid) {
+	    	
 			String sqlPosts = "SELECT * FROM M_POSTS WHERE U_ID = " + uid + ";";
 			String sqlLikes = "SELECT * FROM M_LIKES;";
+			String sqlFriends = "SELECT * FROM M_FRIENDS WHERE U_ID =" + lid + ";";
 			
 			List<Map<String,Object>> posts = jdbcTemplate.queryForList(sqlPosts);
 			List<Map<String,Object>> likes = jdbcTemplate.queryForList(sqlLikes);
+			List<Map<String,Object>> friends = jdbcTemplate.queryForList(sqlFriends);
 			
 			int likeCount;
 			int dislikeCount;
+			boolean isFriend = false;
 			
-			for(Map<String,Object> post: posts) 
-			{
-				likeCount = 0;
-				dislikeCount = 0;
-				
-				for(Map<String,Object> like: likes) 
-				{
-					if(Integer.getInteger(like.get("P_ID").toString()) == Integer.getInteger(post.get("ID").toString()))
-					{
-						if((boolean)like.get("likestatus"))
-							likeCount++;
-						else
-							dislikeCount++;
-					}
+			for(Map<String,Object> friend: friends){
+				if((Integer)friend.get("U_ID") == lid){
+					isFriend = true;
 				}
-				
-				post.put("likes", likeCount);
-				post.put("dislikes", dislikeCount);
 			}
-				    	
+			
+			if(uid == lid || uid != lid && isFriend) {
+				for(Map<String,Object> post: posts) 
+				{
+					likeCount = 0;
+					dislikeCount = 0;
+
+					for(Map<String,Object> like: likes) 
+					{
+						if(Integer.getInteger(like.get("P_ID").toString()) == Integer.getInteger(post.get("ID").toString()))
+						{
+							if((boolean)like.get("likestatus"))
+								likeCount++;
+							else
+								dislikeCount++;
+						}
+					}
+					
+					post.put("likes", likeCount);
+					post.put("dislikes", dislikeCount);
+				}
+			}else{
+				for(Map<String,Object> post: posts) 
+				{
+					likeCount = 0;
+					dislikeCount = 0;
+
+					if(Boolean.getBoolean(post.get("private").toString())) {
+						continue;
+					}
+					for(Map<String,Object> like: likes) 
+					{
+						if(Integer.getInteger(like.get("P_ID").toString()) == Integer.getInteger(post.get("ID").toString()))
+						{
+							if((boolean)like.get("likestatus"))
+								likeCount++;
+							else
+								dislikeCount++;
+						}
+					}
+					
+					post.put("likes", likeCount);
+					post.put("dislikes", dislikeCount);
+				}
+			}
+			
+ 	
 	    	return posts;
 	    }
 
 	    @RequestMapping(value = "/profilpage.htm", method = RequestMethod.GET)
-	    public ModelAndView profilpage(@RequestParam(value="user", required=false) Integer reqUser, HttpSession session) {    	
+	    public ModelAndView profilpage(@RequestParam(value="user", required=false) Integer reqUser, 
+	    							   HttpSession session) {    	
 	        ModelAndView mv;
 	        String sqlLogged;
 	        String sqlUser;
@@ -123,8 +159,9 @@ public class ProfilpageController {
 				Map<String,?> loggeddata = jdbcTemplate.queryForMap(sqlLogged);				
 				
 				userID = (Integer) userdata.get("ID");	
+				loggedID = (Integer) loggeddata.get("ID");
 				
-				List<Map<String,Object>> postsWithLikes = getPosts(userID);
+				List<Map<String,Object>> postsWithLikes = getPosts(userID, loggedID);
 
 				mv.addObject("user", userdata.get("muname"));
 				mv.addObject("loggedID", loggeddata.get("ID"));
@@ -147,7 +184,9 @@ public class ProfilpageController {
 	    						 @RequestParam(value = "postID", required = false) Integer likedPost,
 	    						 @RequestParam(value = "TRUE", required = false) Object likeButton,
 	    						 @RequestParam(value = "FALSE", required = false) Object dislikeButton,
-	    						 HttpSession session) {   
+	    						 @RequestParam(value = "senderID", required = false) Integer senderID,
+	    						 @RequestParam(value = "receiverID", required = false) Integer receiverID,
+	    						 HttpSession session) {  
 	    	if(post != null)
 	    	{
 	    		String sql = "INSERT INTO M_POSTS (ID, U_ID, message, private) VALUES (NULL, " + userID + ", '" + post + "', " + privacy + ");";
@@ -173,6 +212,11 @@ public class ProfilpageController {
 		        	
 		        	jdbcTemplate.execute(sqlLike);
 		        }
+	    	}
+	    	
+	    	if(senderID != null && receiverID != null){
+	    		String sql = "INSERT INTO M_FRIENDS (ID, U_ID) VALUES (" + senderID.intValue() + ", " + receiverID.intValue() + ");";
+		    	jdbcTemplate.execute(sql);
 	    	}
 	    	return "redirect:/profilpage.htm";
 	    }
