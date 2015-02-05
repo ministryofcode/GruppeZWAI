@@ -16,7 +16,7 @@
     <li><a href="login.htm">Login</a></li>
     <li><a href="profilpage.htm">Pinnwand</a></li>
     <li><a href="friendlist.htm">Freunde</a></li>
-    <li><a href="lookupuser.htm">Freunde suchen</a></li>
+    <li><a href="lookupuser.htm">Benutzer suchen</a></li>
     <li><a href="postbox.htm">Nachrichten</a></li>
 
 </ul>
