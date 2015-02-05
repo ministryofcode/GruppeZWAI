@@ -7,9 +7,9 @@
 
 	<p>
 		<label for="post">Empfaenger:</label>
-		<textarea name="Receiver" id="post" cols="10" rows="1" required></textarea>
+		<textarea name="Receiver" id="post" cols="10" rows="1" required maxlength="250"></textarea>
 		<br /> <label for="post">Nachricht:</label>
-		<textarea name="Nachricht" id="post" cols="60" rows="5" required></textarea>
+		<textarea name="Nachricht" id="post" cols="60" rows="5" required maxlength="250"></textarea>
 		<br /> <select name="chooseType" size="2">
 			<option>MIT Empfangsbestaetigung Senden (nur fuer Freunde)</option>
 			<option>OHNE Empfangsbestaetigung Senden</option>
