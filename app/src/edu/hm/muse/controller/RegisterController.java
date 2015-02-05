@@ -56,7 +56,7 @@ public class RegisterController {
     @RequestMapping(value = "/register.htm", method = RequestMethod.GET)
     public ModelAndView showLoginScreen() {
         ModelAndView mv = new ModelAndView("register");
-        mv.addObject("msg", "Select a Username and Password");
+        mv.addObject("msg", "Benutzername und Passwort wählen:");
         return mv;
     }
     @RequestMapping(value = "/register.htm", method = RequestMethod.POST)
