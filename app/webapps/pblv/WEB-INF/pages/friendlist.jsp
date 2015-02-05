@@ -3,7 +3,7 @@
 <h1>Freundesliste</h1>
 <form action="friendlist.htm" method="post">
     <label for="mname" >Hier kannst du deine Freunde anzeigen lassen</label>
-    
+    <br><br>
         <input type="submit" value="Zeig meine Freunde">
 
 <table>
