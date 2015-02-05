@@ -88,7 +88,7 @@ public class FriendController {
 				
 				List<Integer> friendsInInteger = new ArrayList<Integer>(jdbcTemplate.queryForList(sql2, Integer.class));
 				if(friendsInInteger.isEmpty()){
-					friendlist.add("Momentan sind keine Freunde vorhanden");
+					friendlist.add("Derzeit sind keine Freunde vorhanden");
 				}
 				
 				for(int i = 0; i < friendsInInteger.size(); i++){
