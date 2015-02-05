@@ -4,10 +4,10 @@
 <h2><c:out value="${msg}"/></h2>
 <form action="register.htm" method="post">
     <label for="mname" >Benutzername:</label>
-    <input type="text" name="mname" id="mname" pattern="^[a-zA-Z]{1,8}$" required>
+    <input type="text" name="mname" id="mname" pattern="^[a-zA-Z]{1,8}$" required maxlength="250">
     
     <label for="mpwd">Passwort:</label>
-    <input type="password" name="mpwd" id="mpwd" required>
+    <input type="password" name="mpwd" id="mpwd" required maxlength="250">
     <br>
     <br>
     <label>Bitte gew&uuml;nschtes Profilbild ausw&auml;hlen:</label>
