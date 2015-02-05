@@ -63,29 +63,57 @@ public class ProfilpageController {
 	    public void setDataSource(DataSource dataSource) {
 	        jdbcTemplate = new JdbcTemplate(dataSource);
 	    }
+	    
+	    private List<Map<String,Object>> getPosts(Integer uid) {
 
+			String sqlPosts = "SELECT * FROM M_POSTS WHERE U_ID = " + uid + ";";
+			String sqlLikes = "SELECT * FROM M_LIKES;";
+			
+			List<Map<String,Object>> posts = jdbcTemplate.queryForList(sqlPosts);
+			List<Map<String,Object>> likes = jdbcTemplate.queryForList(sqlLikes);
+			
+			int likeCount;
+			int dislikeCount;
+			
+			for(Map<String,Object> post: posts) 
+			{
+				likeCount = 0;
+				dislikeCount = 0;
+				
+				for(Map<String,Object> like: likes) 
+				{
+					if(Integer.getInteger(like.get("P_ID").toString()) == Integer.getInteger(post.get("ID").toString()))
+					{
+						if((boolean)like.get("likestatus"))
+							likeCount++;
+						else
+							dislikeCount++;
+					}
+				}
+				
+				post.put("likes", likeCount);
+				post.put("dislikes", dislikeCount);
+			}
+				    	
+	    	return posts;
+	    }
 
 	    @RequestMapping(value = "/profilpage.htm", method = RequestMethod.GET)
-	    public ModelAndView profilpage(@RequestParam(value="user", required=false) Integer reqUser, HttpSession session) {	    	
-	    	//String pics = "pic1";	    	
+	    public ModelAndView profilpage(@RequestParam(value="user", required=false) Integer reqUser, HttpSession session) {    	
 	        ModelAndView mv;
 	        String sqlLogged;
 	        String sqlUser;
-	        String sqlPosts;
 	        
 	        if(reqUser != null && reqUser.intValue() != 0) 
 	        {
 	        	sqlLogged = "SELECT ID FROM M_USER WHERE sessionID = '" + session.getId() + "';";
-	        	sqlUser = "SELECT * FROM M_USER WHERE ID = '" + reqUser.intValue() + "';";
-	        	sqlPosts = "SELECT * FROM M_POSTS JOIN M_LIKES WHERE U_ID = '" + reqUser.intValue() + "' AND "
-	        			 + " M_POSTS.ID = M_LIKES.P_ID;";
+	        	sqlUser = "SELECT * FROM M_USER WHERE ID = '" + reqUser.intValue() + "';";	        	
 	        	mv = new ModelAndView("profilpageadd");
 	        } 
 	        else 
 	        {
 	        	sqlLogged = "SELECT ID FROM M_USER WHERE sessionID = '" + session.getId() + "';";
-	        	sqlUser = "SELECT * FROM M_USER WHERE sessionID = '" + session.getId() + "';";
-	        	sqlPosts = null;
+	        	sqlUser = "SELECT * FROM M_USER WHERE sessionID = '" + session.getId() + "';";	        	
 	        	mv = new ModelAndView("profilpage");
 	        }
 	        	        
@@ -94,22 +122,15 @@ public class ProfilpageController {
 				Map<String,?> userdata = jdbcTemplate.queryForMap(sqlUser);
 				Map<String,?> loggeddata = jdbcTemplate.queryForMap(sqlLogged);				
 				
-				userID = (Integer) userdata.get("ID");       
+				userID = (Integer) userdata.get("ID");	
 				
-				if(sqlPosts == null) 
-				{
-					sqlPosts = "SELECT * FROM M_POSTS WHERE U_ID = '" + userID + "' AND "
-							 + " M_POSTS.ID = M_LIKES.P_ID;";				
-				}
-				
-				List<Map<String,Object>> postdata = jdbcTemplate.queryForList(sqlPosts);				
-				
+				List<Map<String,Object>> postsWithLikes = getPosts(userID);
 
 				mv.addObject("user", userdata.get("muname"));
 				mv.addObject("loggedID", loggeddata.get("ID"));
 				mv.addObject("userID", userdata.get("ID"));
 				mv.addObject("pictures", userdata.get("picName"));
-				mv.addObject("posts", postdata);
+				mv.addObject("posts", postsWithLikes);
 				return mv;
 			} 
 	        catch (DataAccessException e) 
@@ -147,8 +168,10 @@ public class ProfilpageController {
 		        
 		        if(likingUser != null && likedPost != null)
 		        {
-		        	String sqlLike = "INSERT INTO M_LIKES (ID, U_ID, P_ID, likestatus) VALUES (NULL, "+ likingUser.intValue() + ", "+ likedPost.intValue() + ", "+ like + ");";
-		        	System.out.println(sqlLike);
+		        	String sqlLike = "INSERT INTO M_LIKES (ID, U_ID, P_ID, likestatus) VALUES "
+		        				   + "(NULL, "+ likingUser.intValue() + ", "+ likedPost.intValue() + ", "+ like + ");";
+		        	
+		        	jdbcTemplate.execute(sqlLike);
 		        }
 	    	}
 	    	return "redirect:/profilpage.htm";
@@ -163,11 +186,6 @@ public class ProfilpageController {
 	    	
 	    	return "redirect:/profilpage.htm?user="+ receiverID.intValue();
 	    }
-
-		private JdbcTemplate getJdbcTemplate() {
-			return jdbcTemplate;
-		}
-
 
 }
 
