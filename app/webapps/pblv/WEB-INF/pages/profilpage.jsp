@@ -8,6 +8,14 @@
         <img src="img/${locpic}_th.jpg" alt="${locpic}">
     </c:forEach>
     
+    <c:if test="${userID != loggedID}">
+	    <p>
+	    <input type="hidden" name="senderID" id="senderID" value="${loggedID}">
+	    <input type="hidden" name="receiverID" id="receiverID" value="${userID}">
+	    <input type="submit" value="${user} als Freund hinzufügen">
+	    </p>
+  	</c:if>
+    
   	<c:if test="${userID == loggedID}">
   		<p>
   		<label for="post">Eingaben f&uuml;r ein Post:</label><br/>
