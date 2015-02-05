@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="../../head.jsp"/>
-<h1>Funktionen:</h1>
+<h1>Funktionen</h1>
 <form action="postbox.htm" method="post">
 
     
@@ -9,6 +9,7 @@
     	<option>Ungelesene Nachrichten</option>
     	<option>Gelesene Nachrichten</option>
     </select>
+    <br>
     <input type="submit" value="Select">
 
 </form>
