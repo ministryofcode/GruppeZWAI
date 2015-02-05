@@ -62,12 +62,15 @@ public class RegisterController {
     @RequestMapping(value = "/register.htm", method = RequestMethod.POST)
     public ModelAndView doSomeLogin(@RequestParam(value = "mname", required = true) String mname, 
     								@RequestParam(value = "mpwd", required = true) String mpwd,
-    								@RequestParam(value = "choosepicture", required = true) String pic,
+    								@RequestParam(value = "choosepicture", required = false) String pic,
     								HttpSession session) {
         ModelAndView mv = new ModelAndView("register");
         
-        //Set PicName
+        String sqlUsername = "Select Count(*) from M_USER where muname='"+ mname+"'";
+        int countUser = jdbcTemplate.queryForInt(sqlUsername);
         
+        if (countUser == 0){
+        //Set PicName
         if(pic.equals("Bild 1")){
         	pic = "pic1";
         }
@@ -81,7 +84,7 @@ public class RegisterController {
         	pic = "pic4";
         }
         else{
-        	pic="false";
+        	pic="pic1";
         }
                       
         // Add next User to Database
@@ -93,6 +96,9 @@ public class RegisterController {
         
         mv.addObject("msg", "Benutzer " + mname + " mit ID: " + count + " wurde angelegt");
         
+        }else {
+        	mv.addObject("msg", "User mit dem Namen "+ mname+" bereits vorhanden!");
+        }
         return mv;
     }
 }
