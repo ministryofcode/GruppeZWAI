@@ -70,8 +70,13 @@ public class MessageController {
 	public ModelAndView doSomeLogin(
 			@RequestParam(value = "Receiver", required = true) String receiver,
 			@RequestParam(value = "Nachricht", required = true) String message,
-			@RequestParam(value = "chooseType", required = true) String type,
+			@RequestParam(value = "chooseType", required = false) String type,
 			HttpSession session) {
+
+		if(type == null){
+			type = "";
+		}
+		
 
 		String senderID = getUserIDForSessionID(session.getId());
 
