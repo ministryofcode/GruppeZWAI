@@ -118,9 +118,11 @@ public class ProfilpageController {
 					likeCount = 0;
 					dislikeCount = 0;
 					
-					boolean privateStatus = Boolean.getBoolean(post.get("private").toString());
+					String status = post.get("private").toString();
 					
-					if(privateStatus) 
+					
+					
+					if(status.equals("true") && !isFriend) 
 					{
 						posts.remove(post);
 						continue;
