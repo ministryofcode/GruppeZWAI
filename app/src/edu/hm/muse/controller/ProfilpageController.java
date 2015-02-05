@@ -117,15 +117,22 @@ public class ProfilpageController {
 				{
 					likeCount = 0;
 					dislikeCount = 0;
-
-//					if(Boolean.getBoolean(post.get("private").toString())) {
-//						posts.remove(post);
-//						continue;
-//					}
+					
+					boolean privateStatus = Boolean.getBoolean(post.get("private").toString());
+					
+					if(privateStatus) 
+					{
+						posts.remove(post);
+						continue;
+					}
 					
 					for(Map<String,Object> like: likes) 
 					{
-						if(Integer.getInteger(like.get("P_ID").toString()) == Integer.getInteger(post.get("ID").toString()))
+						
+						String p_ID = like.get("P_ID").toString();
+						String id = post.get("ID").toString();
+						
+						if(p_ID.equals(id))
 						{
 							if((boolean)like.get("likestatus"))
 								likeCount++;
@@ -153,7 +160,7 @@ public class ProfilpageController {
 	        {
 	        	sqlLogged = "SELECT ID FROM M_USER WHERE sessionID = '" + session.getId() + "';";
 	        	sqlUser = "SELECT * FROM M_USER WHERE ID = '" + reqUser.intValue() + "';";	        	
-	        	mv = new ModelAndView("profilpageadd");
+	        	mv = new ModelAndView("profilpage");
 	        } 
 	        else 
 	        {
@@ -177,9 +184,10 @@ public class ProfilpageController {
 				mv.addObject("userID", userdata.get("ID"));
 				mv.addObject("pictures", userdata.get("picName"));
 				mv.addObject("posts", postsWithLikes);
+				
 				return mv;
 			} 
-	        catch (DataAccessException e) 
+	        catch(DataAccessException e) 
 	        {
 	        	System.out.println(e.getMessage());
 				return new ModelAndView("loginfalse");
@@ -195,7 +203,7 @@ public class ProfilpageController {
 	    						 @RequestParam(value = "FALSE", required = false) Object dislikeButton,
 	    						 @RequestParam(value = "senderID", required = false) Integer senderID,
 	    						 @RequestParam(value = "receiverID", required = false) Integer receiverID,
-	    						 HttpSession session) {  
+	    						 HttpSession session) {	    	
 	    	if(post != null)
 	    	{
 	    		String sql = "INSERT INTO M_POSTS (ID, U_ID, message, private) VALUES (NULL, " + userID + ", '" + post + "', " + privacy + ");";
