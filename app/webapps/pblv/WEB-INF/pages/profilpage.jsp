@@ -2,7 +2,6 @@
 <jsp:include page="../../head.jsp"/>
 <h1>Willkommen <c:out value="${user}"/></h1>
 
-
 <form action="profilpage.htm" name="send" method="post">
 
     <c:forEach var="locpic" items="${pictures}">
@@ -11,13 +10,12 @@
     
   	<c:if test="${userID == loggedID}">
   		<p>
-  		<label for="post">Eingaben für ein Post:</label><br/>
+  		<label for="post">Eingaben f&uuml;r ein Post:</label><br/>
     	<textarea name="post" id="post" cols="60" rows="5" required></textarea><br/>
-		<input type="checkbox" name="privacy" id="privacy" checked> Post nur für Freunde<br/>
+		<input type="checkbox" name="privacy" id="privacy" checked> Post nur f&uuml;r Freunde<br/>
 		<input type="submit" value="POSTEN" onClick="window.location.reload()">		
 		</p>
 	</c:if>
-
 	
 </form>
 
@@ -44,7 +42,5 @@
 	         </table>
 	    </c:forEach>
 	</p>
-	
-
 
 <jsp:include page="../../foot.jsp"/>

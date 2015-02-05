@@ -78,41 +78,21 @@ public class ProfilpageController {
 			int dislikeCount;
 			boolean isFriend = false;
 			
-			for(Map<String,Object> friend: friends){
-				if((Integer)friend.get("U_ID") == lid){
+			for(Map<String,Object> friend: friends)
+			{
+				if((Integer)friend.get("U_ID") == lid)
+				{
 					isFriend = true;
 				}
 			}
 			
-			if(uid == lid || uid != lid && isFriend) {
+			if(uid == lid || uid != lid && isFriend) 
+			{
 				for(Map<String,Object> post: posts) 
 				{
 					likeCount = 0;
 					dislikeCount = 0;
 
-					for(Map<String,Object> like: likes) 
-					{
-						if(Integer.getInteger(like.get("P_ID").toString()) == Integer.getInteger(post.get("ID").toString()))
-						{
-							if((boolean)like.get("likestatus"))
-								likeCount++;
-							else
-								dislikeCount++;
-						}
-					}
-					
-					post.put("likes", likeCount);
-					post.put("dislikes", dislikeCount);
-				}
-			}else{
-				for(Map<String,Object> post: posts) 
-				{
-					likeCount = 0;
-					dislikeCount = 0;
-
-					if(Boolean.getBoolean(post.get("private").toString())) {
-						continue;
-					}
 					for(Map<String,Object> like: likes) 
 					{
 						if(Integer.getInteger(like.get("P_ID").toString()) == Integer.getInteger(post.get("ID").toString()))
@@ -128,7 +108,33 @@ public class ProfilpageController {
 					post.put("dislikes", dislikeCount);
 				}
 			}
-			
+			else
+			{
+				for(Map<String,Object> post: posts) 
+				{
+					likeCount = 0;
+					dislikeCount = 0;
+
+//					if(Boolean.getBoolean(post.get("private").toString())) {
+//						posts.remove(post);
+//						continue;
+//					}
+					
+					for(Map<String,Object> like: likes) 
+					{
+						if(Integer.getInteger(like.get("P_ID").toString()) == Integer.getInteger(post.get("ID").toString()))
+						{
+							if((boolean)like.get("likestatus"))
+								likeCount++;
+							else
+								dislikeCount++;
+						}
+					}
+					
+					post.put("likes", likeCount);
+					post.put("dislikes", dislikeCount);
+				}
+			}			
  	
 	    	return posts;
 	    }
@@ -221,15 +227,15 @@ public class ProfilpageController {
 	    	return "redirect:/profilpage.htm";
 	    }
 	    
-	    @RequestMapping(value = "/profilpageadd.htm", method = RequestMethod.POST)
-	    public String profilpage(@RequestParam(value = "senderID", required = false) Integer senderID,
-	    						 @RequestParam(value = "receiverID", required = false) Integer receiverID,
-	    						 HttpSession session) {   
-	    	String sql = "INSERT INTO M_FRIENDS (ID, U_ID) VALUES (" + senderID.intValue() + ", " + receiverID.intValue() + ");";
-	    	jdbcTemplate.execute(sql);
-	    	
-	    	return "redirect:/profilpage.htm?user="+ receiverID.intValue();
-	    }
+//	    @RequestMapping(value = "/profilpageadd.htm", method = RequestMethod.POST)
+//	    public String profilpage(@RequestParam(value = "senderID", required = false) Integer senderID,
+//	    						 @RequestParam(value = "receiverID", required = false) Integer receiverID,
+//	    						 HttpSession session) {   
+//	    	String sql = "INSERT INTO M_FRIENDS (ID, U_ID) VALUES (" + senderID.intValue() + ", " + receiverID.intValue() + ");";
+//	    	jdbcTemplate.execute(sql);
+//	    	
+//	    	return "redirect:/profilpage.htm?user="+ receiverID.intValue();
+//	    }
 
 }
 
