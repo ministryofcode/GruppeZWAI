@@ -71,21 +71,18 @@ public class RegisterController {
         
         if (countUser == 0){
         //Set PicName
-        if(pic.equals("Bild 1")){
-        	pic = "pic1";
-        }
-        else if (pic.equals("Bild 2")){
-        	pic = "pic2";
-        }
-        else if(pic.equals("Bild 3")){
-        	pic = "pic3";
-        }
-        else if(pic.equals("Bild 4")){
-        	pic = "pic4";
-        }
-        else{
-        	pic="pic1";
-        }
+        if (pic == null) {
+				pic = "pic1";
+			} else if (pic.equals("Bild 1")) {
+				pic = "pic1";
+			} else if (pic.equals("Bild 2")) {
+				pic = "pic2";
+			} else if (pic.equals("Bild 3")) {
+				pic = "pic3";
+			} else if (pic.equals("Bild 4")) {
+				pic = "pic4";
+			}
+
                       
         // Add next User to Database
         String sql = "INSERT INTO M_USER (ID, muname, mpwd, picName) VALUES (NULL, '" + mname + "', '" + mpwd + "', '" + pic + "');";    	
