@@ -9,7 +9,7 @@
     	<option>Ungelesene Nachrichten</option>
     	<option>Gelesene Nachrichten</option>
     </select>
-    <br>
+    <br><br>
     <input type="submit" value="Select">
 
 </form>
