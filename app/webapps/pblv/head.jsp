@@ -14,7 +14,7 @@
     <li><a href="/pblv/">Startseite</a></li>
     <li><a href="register.htm">Registrierung</a></li>
     <li><a href="login.htm">Login</a></li>
-    <li><a href="profilpage.htm">Profil</a></li>
+    <li><a href="profilpage.htm">Pinnwand</a></li>
     <li><a href="friendlist.htm">Freunde</a></li>
     <li><a href="lookupuser.htm">Freunde suchen</a></li>
     <li><a href="postbox.htm">Nachrichten</a></li>
