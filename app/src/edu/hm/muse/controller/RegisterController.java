@@ -91,7 +91,7 @@ public class RegisterController {
         String sqlSelect = "SELECT COUNT(*) FROM M_USER;";        
         final int count = jdbcTemplate.queryForInt(sqlSelect);
         
-        mv.addObject("msg", "User " + mname + " with ID: " + count + " registered.");
+        mv.addObject("msg", "Benutzer " + mname + " mit ID: " + count + " wurde angelegt");
         
         return mv;
     }
