@@ -1,16 +1,16 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="../../head.jsp"/>
-<h1>Welcome to Registration!</h1>
+<h1>Willkommen!</h1>
 <h2><c:out value="${msg}"/></h2>
 <form action="register.htm" method="post">
-    <label for="mname" >User Name:</label>
+    <label for="mname" >Benutzername:</label>
     <input type="text" name="mname" id="mname" pattern="^[a-zA-Z]{1,8}$" required>
     
-    <label for="mpwd">Password:</label>
+    <label for="mpwd">Passwort:</label>
     <input type="password" name="mpwd" id="mpwd" required>
     <br>
     <br>
-    <label>Bitte gewünschtes Profilbild auswählen:</label>
+    <label>Bitte gewÃ¼nschtes Profilbild auswÃ¤hlen:</label>
     <br>
     <br>
     <label>Bild 1:</label>
@@ -31,6 +31,6 @@
     	<option>Bild 4</option>
     </select>
     </p>
-    <input type="submit" value="Register">
+    <input type="submit" value="Registrieren">
 </form>
 <jsp:include page="../../foot.jsp"/>
