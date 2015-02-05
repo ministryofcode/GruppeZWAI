@@ -11,7 +11,7 @@
 		<br /> <label for="post">Nachricht:</label>
 		<textarea name="Nachricht" id="post" cols="60" rows="5" required></textarea>
 		<br /> <select name="chooseType" size="2">
-			<option>MIT Empfangsbestaetigung Senden (nur für Freunde)</option>
+			<option>MIT Empfangsbestaetigung Senden (nur fuer Freunde)</option>
 			<option>OHNE Empfangsbestaetigung Senden</option>
 		</select> <input type="submit" value="SENDEN">
 	</p>
