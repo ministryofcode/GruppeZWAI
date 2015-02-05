@@ -8,7 +8,7 @@
 	<label for="mname" >Benutzername: </label>
     <input type="text" name="mname" id="mname" maxlength="250">
     <label for="mpwd">Passwort:</label>
-    <input type="text" name="mpwd" id="mpwd" maxlength="250">
+    <input type="password" name="mpwd" id="mpwd" maxlength="250">
     <input type="submit" value="Anmelden">
 </form>
 
