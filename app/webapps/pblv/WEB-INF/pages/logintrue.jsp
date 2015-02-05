@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="../../head.jsp"/>
-<h1>Sie sind jeztt angemeldet!</h1>
+<h1>Sie sind jezt angemeldet!</h1>
 <a href="postbox.htm">
 <h2><c:out value="${msg}"/></h2>
 </a>
