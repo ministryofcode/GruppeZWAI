@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="../../head.jsp"/>
-<h2>Willkommen <c:out value="${user}"/></h2>
+<h1>Willkommen <c:out value="${user}"/></h1>
 
 
 <form action="profilpage.htm" name="send" method="post">
@@ -11,9 +11,9 @@
     
   	<c:if test="${userID == loggedID}">
   		<p>
-  		<label for="post">Eingaben für ein Post:</label><br/>
+  		<label for="post">Eingaben fÃ¼r ein Post:</label><br/>
     	<textarea name="post" id="post" cols="60" rows="5" required></textarea><br/>
-		<input type="checkbox" name="privacy" id="privacy" checked> Post nur für Freunde<br/>
+		<input type="checkbox" name="privacy" id="privacy" checked> Post nur fÃ¼r Freunde<br/>
 		<input type="submit" value="POSTEN" onClick="window.location.reload()">		
 		</p>
 	</c:if>
