@@ -6,9 +6,9 @@
 
 <form action="login.htm" method="post">
 	<label for="mname" >Benutzername: </label>
-    <input type="text" name="mname" id="mname">
+    <input type="text" name="mname" id="mname" maxlength="250">
     <label for="mpwd">Passwort:</label>
-    <input type="text" name="mpwd" id="mpwd">
+    <input type="text" name="mpwd" id="mpwd" maxlength="250">
     <input type="submit" value="Anmelden">
 </form>
 
